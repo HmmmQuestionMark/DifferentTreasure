@@ -8,4 +8,10 @@ commands:
   treasures:
     usage: /<command>
     aliases: [tr]
-    permission: treasures.info
+permissions:
+  treasures.info:
+    default: true
+    description: View the plugin info.
+  treasures.reload:
+    default: op
+    description: Reload the plugin.

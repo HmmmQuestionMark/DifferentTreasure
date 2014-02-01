@@ -204,6 +204,28 @@ public class Treasures
 		{
 			if("treasures".equals(command.getName()))
 			{
+				if(args.length > 0 && "reload".equalsIgnoreCase(args[0]))
+				{
+					if(sender.hasPermission("treasure.reload"))
+					{
+						PLUGIN.reloadConfig();
+						Bukkit.getScheduler().cancelTasks(PLUGIN);
+						startTeasing();
+						sender.sendMessage(ChatColor.YELLOW + "The plugin has finished reloading.");
+					}
+					else
+					{
+						sender.sendMessage(ChatColor.RED + "You can't use that command.");
+					}
+					return true;
+				}
+
+				if(!sender.hasPermission("treasures.info"))
+				{
+					sender.sendMessage(ChatColor.RED + "You can't use that command.");
+					return true;
+				}
+
 				sender.sendMessage("Treasures v" + PLUGIN.getDescription().getVersion() + ".");
 			}
 
