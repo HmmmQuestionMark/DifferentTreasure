@@ -18,6 +18,6 @@ public class TreasuresPlugin extends JavaPlugin
 	public void onDisable()
 	{
 		// Print success!
-        getLogger().info("Successfully disabled.");
+		getLogger().info("Successfully disabled.");
 	}
 }
