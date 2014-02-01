@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.hqm</groupId>
-    <artifactId>Treasures</artifactId>
+    <groupId>me.hqm.different</groupId>
+    <artifactId>DifferentTreasure</artifactId>
     <packaging>jar</packaging>
     <version>1.0.0</version>
 
-    <name>Treasures</name>
+    <name>DifferentTreasure</name>
     <description>A straight-forward, slimmed down treasure plugin.</description>
     <url>http://github.com/CensoredSoftware/Treasures</url>
 
@@ -131,7 +131,7 @@
     </dependencies>
 
     <build>
-        <finalName>Treasures</finalName>
+        <finalName>${project.name}</finalName>
         <defaultGoal>clean install</defaultGoal>
         <sourceDirectory>${basedir}/src/main/java/</sourceDirectory>
         <resources>
