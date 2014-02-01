@@ -1,0 +1,23 @@
+## Plugin Settings ##
+broadcast:
+  on: true
+  message: '&3New chest in world %{world}! Check out %{coordinates}!'
+
+## Time Settings ##
+minutes: 7
+
+## Regions ##
+regions:
+  world: []
+  world_nether: []
+  world_the_end: []
+
+## Items ##
+items:
+  world:
+    - default
+  world_nether: []
+  world_the_end: []
+
+## Item Sets ##
+item_sets:

@@ -1,0 +1,11 @@
+name: Treasures
+description: A straight-forward, slimmed down treasure plugin.
+main: me.hqm.treasures.TreasuresPlugin
+version: ${project.version}
+author: HmmmQuestionMark
+depend: [WorldGuard]
+commands:
+  treasures:
+    usage: /<command>
+    aliases: [tr]
+    permission: treasures.info
