@@ -1,17 +1,17 @@
-name: Treasures
+name: DifferentTreasure
 description: A straight-forward, slimmed down treasure plugin.
-main: me.hqm.treasures.TreasuresPlugin
+main: me.hqm.different.treasure.DifferentTreasurePlugin
 version: ${project.version}
 author: HmmmQuestionMark
 depend: [WorldGuard]
 commands:
-  treasures:
-    usage: /<command>
-    aliases: [tr]
+  treasure:
+    usage: /<command [reload]
+    aliases: [tr, dtr, differenttreasure]
 permissions:
-  treasures.info:
+  different.treasure.info:
     default: true
     description: View the plugin info.
-  treasures.reload:
+  different.treasure.reload:
     default: op
     description: Reload the plugin.

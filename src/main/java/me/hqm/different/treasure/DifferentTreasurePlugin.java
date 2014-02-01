@@ -1,14 +1,14 @@
-package me.hqm.treasures;
+package me.hqm.different.treasure;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class TreasuresPlugin extends JavaPlugin
+public class DifferentTreasurePlugin extends JavaPlugin
 {
 	@Override
 	public void onEnable()
 	{
 		// Load Treasures
-		Treasures.load();
+		DifferentTreasure.load();
 
 		// Print success!
 		getLogger().info("Successfully enabled.");

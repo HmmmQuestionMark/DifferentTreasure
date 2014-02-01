@@ -1,4 +1,4 @@
-package me.hqm.treasures;
+package me.hqm.different.treasure;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -26,11 +26,11 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class Treasures
+public class DifferentTreasure
 {
 	// Define variables
 	public static final Random RAND = new Random();
-	public static final TreasuresPlugin PLUGIN = (TreasuresPlugin) Bukkit.getServer().getPluginManager().getPlugin("Treasures");
+	public static final DifferentTreasurePlugin PLUGIN = (DifferentTreasurePlugin) Bukkit.getServer().getPluginManager().getPlugin("DifferentTreasure");
 
 	protected static void load()
 	{
@@ -105,12 +105,15 @@ public class Treasures
 		Chest chest = (Chest) location.getBlock().getState();
 		setItemsForChest(chest);
 
-		String message = ChatColor.translateAlternateColorCodes('&', PLUGIN.getConfig().getString("broadcast.message"));
+		if(PLUGIN.getConfig().getBoolean("broadcast.on"))
+		{
+			String message = ChatColor.translateAlternateColorCodes('&', PLUGIN.getConfig().getString("broadcast.message"));
 
-		if(message.contains("%{world}")) message = StringUtils.replace(message, "%{world}", world.getName());
-		if(message.contains("%{coordinates}")) message = StringUtils.replace(message, "%{coordinates}", "X: " + location.getBlockX() + ", Y: " + location.getBlockY() + ", Z: " + location.getBlockZ());
+			if(message.contains("%{world}")) message = StringUtils.replace(message, "%{world}", world.getName());
+			if(message.contains("%{coordinates}")) message = StringUtils.replace(message, "%{coordinates}", "X: " + location.getBlockX() + ", Y: " + location.getBlockY() + ", Z: " + location.getBlockZ());
 
-		Bukkit.broadcastMessage(message);
+			Bukkit.broadcastMessage(message);
+		}
 	}
 
 	private static Location getRandomLocationInRegion(World world, ProtectedRegion region)
@@ -202,11 +205,11 @@ public class Treasures
 		@Override
 		public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
 		{
-			if("treasures".equals(command.getName()))
+			if("treasure".equals(command.getName()))
 			{
 				if(args.length > 0 && "reload".equalsIgnoreCase(args[0]))
 				{
-					if(sender.hasPermission("treasure.reload"))
+					if(sender.hasPermission("different.treasure.reload"))
 					{
 						PLUGIN.reloadConfig();
 						Bukkit.getScheduler().cancelTasks(PLUGIN);
@@ -220,13 +223,13 @@ public class Treasures
 					return true;
 				}
 
-				if(!sender.hasPermission("treasures.info"))
+				if(!sender.hasPermission("different.treasure.info"))
 				{
 					sender.sendMessage(ChatColor.RED + "You can't use that command.");
 					return true;
 				}
 
-				sender.sendMessage("Treasures v" + PLUGIN.getDescription().getVersion() + ".");
+				sender.sendMessage("DifferentTreasure v" + PLUGIN.getDescription().getVersion() + ".");
 			}
 
 			return true;
