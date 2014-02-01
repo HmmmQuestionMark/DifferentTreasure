@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.sk89q.worldguard.bukkit.BukkitUtil;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.flags.DefaultFlag;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.*;
@@ -63,7 +64,7 @@ public class Treasures
 			@Override
 			public void run()
 			{
-				createChest();
+				if(Bukkit.getOnlinePlayers().length > 0) createChest();
 			}
 		}, 6, TimeUnit.MINUTES.toSeconds(PLUGIN.getConfig().getInt("minutes")) * 20);
 	}
@@ -98,7 +99,7 @@ public class Treasures
 
 		Location location = getRandomLocationInRegion(world, protectedRegion);
 
-		if(!location.getChunk().isLoaded()) return;
+		if(!location.getChunk().isLoaded() || !WorldGuardPlugin.inst().getRegionManager(world).getApplicableRegions(location).allows(DefaultFlag.ENDER_BUILD)) return;
 
 		location.getBlock().setType(Material.CHEST);
 		Chest chest = (Chest) location.getBlock().getState();
@@ -112,8 +113,6 @@ public class Treasures
 		Bukkit.broadcastMessage(message);
 	}
 
-	private static int TRIES = 0;
-
 	private static Location getRandomLocationInRegion(World world, ProtectedRegion region)
 	{
 		Location max = BukkitUtil.toLocation(world, region.getMaximumPoint());
@@ -122,18 +121,7 @@ public class Treasures
 		int x = RAND.nextInt(max.getBlockX() - min.getBlockX() + 1) + min.getBlockX();
 		int z = RAND.nextInt(max.getBlockZ() - min.getBlockZ() + 1) + min.getBlockZ();
 
-		Location location = new Location(world, x, world.getHighestBlockYAt(x, z), z);
-
-		TRIES++;
-		if(!location.getChunk().isLoaded())
-		{
-			if(TRIES > 5) throw new NullPointerException("Can't find a safe place to spawn a chest.");
-			return getRandomLocationInRegion(world, region);
-		}
-
-		TRIES = 0;
-
-		return location;
+		return new Location(world, x, world.getHighestBlockYAt(x, z), z);
 	}
 
 	private static final Map<Integer, ItemStack> DEFAULT_ITEMS = Maps.newHashMap();
